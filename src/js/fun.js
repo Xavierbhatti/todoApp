@@ -38,8 +38,8 @@ export default class List{
 	}
 
 	renderArray(listItems) {
-		var that = this;
-		console.log(that);
+		// var that = this;
+		// console.log(that);
 		$('tbody').remove();
 		$('table').append('<tbody></tbody>');
 		listItems.map(function(listItem, index){
@@ -61,26 +61,29 @@ export default class List{
 					</td>
 				</tr>`
 			)
-		}).forEach(function(item, index){
+		}.bind(this)).forEach((item, index) => {
 				$('tbody').append(item);
 				
-				$(`#btnDel${index}`).on('click', function(e){
+				$(`#btnDel${index}`).on('click', e => {
 					console.log(`Delete ${index}`);
-					that.removeListItem(index, listItems);
+					this.removeListItem(index, listItems);
 				});
 				
-				$(`#btnUp${index}`).on('click', function(e){
-					that.shiftUpItem(index, listItems);
+				$(`#btnUp${index}`).on('click', e => {
+					this.shiftUpItem(index, listItems);
 				});
 
-				$(`#btnDown${index}`).on('click', function(e){
-					that.shiftDownItem(index, listItems);
+				$(`#btnDown${index}`).on('click', e => {
+					this.shiftDownItem(index, listItems);
 				});
 
-				$(`#btnComplete${index}`).on('click', function(e){
-					that.completedItem(index, listItems);
+				$(`#btnComplete${index}`).on('click', e => {
+					this.completedItem(index, listItems);
 				});
 
 			});
 	};	
 }
+
+//In ES6, '=>' under the hood it is binding this.  
+//We use all functions with arrow except map(). map is use with bind.
