@@ -90,7 +90,7 @@ module.exports = {
     //   'jQuery': 'jquery'
     // }),
     new ExtractTextPlugin({
-      filename: './dist/css/styles.css'
+      filename: '../css/styles.css'
     }),
     // This is for optimizing the css file so that it removes any used css classes from the built css file
     // It works after the extract text plugin as that gives us the resulting css file

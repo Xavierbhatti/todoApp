@@ -48,9 +48,10 @@ module.exports = {
       {
         test:/\.css$/,
         //The extract text plugin is used to take the css file imported in the js file into a separate css file
-        use: ExtractTextPlugin.extract({
+        // use: ExtractTextPlugin.extract({
           use: [ 
-            {
+            'style-loader',
+          	{
               // The css loader is used to understand the css file
               loader: 'css-loader',
               options: {
@@ -58,12 +59,13 @@ module.exports = {
               }
             }
           ]
-        })
+        // })
       },
       {
         test:/\.scss$/,
-        use: ExtractTextPlugin.extract({
+        // use: ExtractTextPlugin.extract({
           use: [ 
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
@@ -74,7 +76,7 @@ module.exports = {
             // it requires both the sass-loader and the node-sass modules from npm
             'sass-loader'
           ]
-        })
+        // })
       }
     ]
   },

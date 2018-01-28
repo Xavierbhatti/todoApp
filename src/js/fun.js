@@ -1,41 +1,45 @@
-	import $ from 'jquery';
-	export function addListItem(item, listItems) {
+import $ from 'jquery';
+
+export default class List{
+	addListItem(item, listItems) {
 		listItems.push(item);		
-		renderArray(listItems);
+		this.renderArray(listItems);
 	};
 
-	export function removeListItem(index, listItems){
+	removeListItem(index, listItems){
 		listItems.splice(index, 1);
-		renderArray(listItems);
+		this.renderArray(listItems);
 	}
 
-	function shiftUpItem(index, listItems) {
+	shiftUpItem(index, listItems) {
 		if (!index) {
 			return null;
 		}else{
 			var temp = listItems.splice(index, 1);
 			listItems.splice(index-1, 0, temp[0]);
-			renderArray(listItems);
+			this.renderArray(listItems);
 		}
 	}
 
-	function shiftDownItem(index, listItems) {
+	shiftDownItem(index, listItems) {
 		if (index >= listItems.length-1) {
 			return null;
 		}else{
 			var temp = listItems.splice(index, 1);
 			listItems.splice(index+1, 0, temp[0]);
-			renderArray(listItems);
+			this.renderArray(listItems);
 		}
 	}
 
-	function completedItem(index, listItems) {
+	completedItem(index, listItems) {
 		listItems[index].completed = !listItems[index].completed;
 		console.log(listItems[index].completed)
-		renderArray(listItems);
+		this.renderArray(listItems);
 	}
 
-	function renderArray(listItems) {
+	renderArray(listItems) {
+		var that = this;
+		console.log(that);
 		$('tbody').remove();
 		$('table').append('<tbody></tbody>');
 		listItems.map(function(listItem, index){
@@ -62,23 +66,21 @@
 				
 				$(`#btnDel${index}`).on('click', function(e){
 					console.log(`Delete ${index}`);
-					removeListItem(index, listItems);
+					that.removeListItem(index, listItems);
 				});
 				
 				$(`#btnUp${index}`).on('click', function(e){
-					shiftUpItem(index, listItems);
+					that.shiftUpItem(index, listItems);
 				});
 
 				$(`#btnDown${index}`).on('click', function(e){
-					shiftDownItem(index, listItems);
+					that.shiftDownItem(index, listItems);
 				});
 
 				$(`#btnComplete${index}`).on('click', function(e){
-					completedItem(index, listItems);
+					that.completedItem(index, listItems);
 				});
 
 			});
 	};	
-
-// module.exports = addListItem;
-// export default addListItem;
+}
